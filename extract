@@ -6,7 +6,7 @@ rm temp
 for i in $(seq $1 $2)
 do	
 	echo "Processing file $i"
-	#curl -O http://planet.openstreetmap.org/replication/day/000/000/$1.osc.gz	
+	curl -O http://planet.openstreetmap.org/replication/day/000/000/$1.osc.gz	
 	gzip -d $i.osc.gz
 	./osmconvert $i.osc -B=$3 -o=$i.o5m   	
    	./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
