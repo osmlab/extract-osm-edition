@@ -6,12 +6,17 @@ rm temp
 for i in $(seq $1 $2)
 do	
 	#curl -O http://planet.openstreetmap.org/replication/day/000/000/$1.osc.gz
-	gzip -d $i.osc.gz	
-   	./osmfilter $i.osc --keep="\"$(cat u)\"" -o=$i.osm
-    node index.js --osmfile=$i.osm --boundfile=$3 --path=$path_files
-    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger" -append us-$i.geojson
+	gzip -d $i.osc.gz
+	./osmconvert $i.osc -B=$3 -o=$i.o5m   	
+   	./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
+   	./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
+    node index.js --osmfile=u-$i.osm
+    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger" -append u-$i.geojson
     echo $i.osc
-    rm $i.osm
-    rm us-$i.geojson
+    rm $i.o5m
+    rm hig-$i.osm
+    rm u-$i.osm
+    rm u-$i.geojson
 done
 rm u
+
