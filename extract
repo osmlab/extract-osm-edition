@@ -12,7 +12,7 @@ do
    	./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
    	./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
     node index.js --osmfile=u-$i.osm
-    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger" -append u-$i.geojson
+    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprogresstiger" -append u-$i.geojson
     rm $i.osc
     rm $i.o5m
     rm hig-$i.osm
