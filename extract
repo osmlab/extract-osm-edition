@@ -6,7 +6,6 @@ rm temp
 for i in $(seq $1 $2)
 do	
 	curl -O http://planet.osm.org/replication/day/000/000/$i.osc.gz    
-    sleep 10s
     echo "Processing file $i"
 	gzip -d $i.osc.gz
 	./osmconvert $i.osc -B=$3 -o=$i.o5m   	
