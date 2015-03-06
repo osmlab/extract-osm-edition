@@ -16,7 +16,6 @@ else
 l="$i"
 echo "Downloading file $l"
 fi	
-
 	curl -O http://planet.osm.org/replication/day/000/000/$i.osc.gz    
     echo "Processing file $i"
 	gzip -d $i.osc.gz
